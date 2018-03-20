@@ -3,6 +3,10 @@ import FlatColorPicker from "./flat-color";
 import Button from "./button";
 import Bar from "./Bar";
 
+const factory = obj => {
+  return <Button name={obj.name} value={obj.value} onClick={obj.func} />;
+};
+
 class ColorPicker extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +30,13 @@ class ColorPicker extends Component {
         </div>
       ) : null;
 
+    const btns = [
+      { name: "A", value: "Flat Color", func: this.changeView },
+      { name: "B", value: "Linear Gradient", func: this.changeView },
+      { name: "C", value: "Radial Gradient", func: this.changeView },
+      { name: "D", value: "Angular Gradient", func: this.changeView }
+    ].map(obj => factory(obj));
+
     return (
       <div style={{ width: "220px" }}>
         <div
@@ -39,10 +50,7 @@ class ColorPicker extends Component {
             justifyContent: "center"
           }}
         >
-          <Button name="A" value="Flat Color" onClick={this.changeView} />
-          <Button name="B" value="Linear Gradient" onClick={this.changeView} />
-          <Button name="C" value="Radial Gradient" onClick={this.changeView} />
-          <Button name="D" value="Angular Gradient" onClick={this.changeView} />
+          {btns}
         </div>
         <hr />
         {bar}
